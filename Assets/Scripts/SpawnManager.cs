@@ -21,6 +21,7 @@ public class SpawnManager : MonoBehaviour
         
     }
 
+// We create a method to generate a random spawn position for the enemy
     Vector3 GenerateSpawnPosition()
     {
         // We get a random position on the x and z axis within the spawn range

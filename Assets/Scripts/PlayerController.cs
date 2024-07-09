@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private GameObject focalPoint;
     public float speed = 5.0f;
+    public bool hasPowerup;
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -22,4 +24,14 @@ public class PlayerController : MonoBehaviour
         // We add movement to the player in the forward direction of the focal point
         playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Powerup"))
+        {
+            hasPowerup = true;
+            Destroy(other.gameObject);
+        }
+    }
+    
 } 
