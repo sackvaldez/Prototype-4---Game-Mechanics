@@ -33,7 +33,18 @@ public class PlayerController : MonoBehaviour
         {
             hasPowerup = true;
             Destroy(other.gameObject);
+            // We start the coroutine below to make the powerup last for a limited time
+            StartCoroutine(PowerupCountdownRoutine());
         }
+    }
+
+//    // In order to make the powerup last for a limited time, 
+//    we create a coroutine that will set hasPowerup to false after 7 seconds
+    IEnumerator PowerupCountdownRoutine()
+    {
+        // Yield is a keyword that is used to return an IEnumerator, so we can use it in a coroutine
+        yield return new WaitForSeconds(7);
+        hasPowerup = false;
     }
     
     private void OnCollisionEnter(Collision collision)
