@@ -6,6 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     // We create a public GameObject variable to store the enemy prefab
     public GameObject enemyPrefab;
+    public GameObject powerupPrefab;
     private float spawnRange = 9;
     public int waveNumber = 1;
     public int enemyCount;
@@ -14,6 +15,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         SpawnEnemyWave(waveNumber);
+        Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
     }
 
     // Update is called once per frame
@@ -23,8 +25,9 @@ public class SpawnManager : MonoBehaviour
         enemyCount = FindObjectsOfType<Enemy>().Length;
         if (enemyCount == 0)
         {
+            // We spawn a new wave of enemies and a powerup when there are no enemies in the scene
+            Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
             waveNumber++;
-            // We spawn a new wave of enemies when there are no enemies in the scene
             SpawnEnemyWave(waveNumber);
         }
     }
