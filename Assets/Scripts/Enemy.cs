@@ -24,5 +24,9 @@ public class Enemy : MonoBehaviour
         // We add force to the enemy in the direction of the player and with the speed value
         enemyRb.AddForce((player.transform.position - transform.position).normalized * speed);
 
+        if (transform.position.y < -10)
+        {
+            Destroy(gameObject);
+        }
     }
 }
