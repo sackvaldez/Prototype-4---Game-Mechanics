@@ -8,8 +8,8 @@ public class SpawnManagerX : MonoBehaviour
     public GameObject powerupPrefab;
 
     private float spawnRangeX = 10;
-    private float spawnZMin = 15; // set min spawn Z
-    private float spawnZMax = 25; // set max spawn Z
+    private float spawnZMin = 15;
+    private float spawnZMax = 25;
 
     public int enemyCount;
     public int waveCount = 1;
@@ -20,7 +20,7 @@ public class SpawnManagerX : MonoBehaviour
     void Start()
     {
         enemyXScript = enemyPrefab.GetComponent<EnemyX>();
-        ResetGame(); // Restablece el juego al comenzar
+        ResetGame(); // 
     }
 
     void Update()
@@ -71,7 +71,7 @@ public class SpawnManagerX : MonoBehaviour
 
     void ResetGame()
     {
-        // Restablece la velocidad de todos los enemigos al valor inicial
+        // Refresh enemy speed and player position when game restarts
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {

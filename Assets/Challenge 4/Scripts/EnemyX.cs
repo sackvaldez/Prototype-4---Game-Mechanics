@@ -18,7 +18,7 @@ public class EnemyX : MonoBehaviour
 
     public void ResetSpeed()
     {
-        speed = initialSpeed; // Restablece la velocidad al valor inicial
+        speed = initialSpeed; // Reset speed to initial value
     }
 
     void Update()
