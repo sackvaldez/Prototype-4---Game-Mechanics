@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class EnemyX : MonoBehaviour
 {
-    public float speed=1;
+    public float speed;
     private Rigidbody enemyRb;
+    private float initialSpeed;
     private GameObject playerGoal;
 
-    // Start is called before the first frame update
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         playerGoal = GameObject.Find("Player Goal");
+        initialSpeed = speed;
     }
 
-    // Update is called once per frame
+    public void ResetSpeed()
+    {
+        speed = initialSpeed; // Restablece la velocidad al valor inicial
+    }
+
     void Update()
     {
         // Set enemy direction towards player goal and move there
@@ -26,15 +31,9 @@ public class EnemyX : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         // If enemy collides with either goal, destroy it
-        if (other.gameObject.name == "Enemy Goal")
-        {
-            Destroy(gameObject);
-        } 
-        else if (other.gameObject.name == "Player Goal")
+        if (other.gameObject.name == "Enemy Goal" || other.gameObject.name == "Player Goal")
         {
             Destroy(gameObject);
         }
-
     }
-
 }

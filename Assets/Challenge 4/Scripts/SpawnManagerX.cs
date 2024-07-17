@@ -15,17 +15,14 @@ public class SpawnManagerX : MonoBehaviour
     public int waveCount = 1;
 
     private EnemyX enemyXScript;
-
-
-    public GameObject player; 
+    public GameObject player;
 
     void Start()
     {
         enemyXScript = enemyPrefab.GetComponent<EnemyX>();
+        ResetGame(); // Restablece el juego al comenzar
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
@@ -34,17 +31,14 @@ public class SpawnManagerX : MonoBehaviour
         {
             SpawnEnemyWave(waveCount);
         }
-
     }
 
-    // Generate random spawn position for powerups and enemy balls
-    Vector3 GenerateSpawnPosition ()
+    Vector3 GenerateSpawnPosition()
     {
         float xPos = Random.Range(-spawnRangeX, spawnRangeX);
         float zPos = Random.Range(spawnZMin, spawnZMax);
         return new Vector3(xPos, 0, zPos);
     }
-
 
     void SpawnEnemyWave(int enemiesToSpawn)
     {
@@ -66,16 +60,30 @@ public class SpawnManagerX : MonoBehaviour
         // Increase enemy speed each level
         enemyXScript.speed += 1.0f;
         ResetPlayerPosition(); // put player back at start
-
     }
 
-    // Move player back to position in front of own goal
-    void ResetPlayerPosition ()
+    void ResetPlayerPosition()
     {
         player.transform.position = new Vector3(0, 1, -7);
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-
     }
 
+    void ResetGame()
+    {
+        // Restablece la velocidad de todos los enemigos al valor inicial
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            EnemyX enemyScript = enemy.GetComponent<EnemyX>();
+            if (enemyScript != null)
+            {
+                enemyScript.ResetSpeed();
+            }
+        }
+
+        // Restablece otras variables de juego según sea necesario
+        waveCount = 1;
+        enemyXScript.ResetSpeed(); // Restablece la velocidad del enemigo inicial
+    }
 }
